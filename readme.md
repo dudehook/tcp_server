@@ -4,7 +4,7 @@ Package tcp_server created to help build TCP servers faster.
 ### Install package
 
 ``` bash
-> go get github.com/firstrow/tcp_server
+> go get github.com/dudehook/tcp_server
 ```
 
 ### Usage:
@@ -14,7 +14,7 @@ NOTICE: `OnNewMessage` callback will receive new message only if it's ending wit
 ``` go
 package main
 
-import "github.com/firstrow/tcp_server"
+import "github.com/dudehook/tcp_server"
 
 func main() {
 	server := tcp_server.New("localhost:9999")
@@ -36,13 +36,6 @@ func main() {
 ```
 
 # Contributing
-
-To hack on this project:
-
-1. Install as usual (`go get -u github.com/firstrow/tcp_server`)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Ensure everything works and the tests pass (`go test`)
-4. Commit your changes (`git commit -am 'Add some feature'`)
 
 Contribute upstream:
 
