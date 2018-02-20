@@ -9,11 +9,11 @@ import (
 // Client holds info about connection
 type Client struct {
 	conn   net.Conn
-	Server *server
+	Server *TCPServer
 }
 
 // TCP server
-type server struct {
+type TCPServer struct {
 	clients                  []*Client
 	address                  string // Address to open connection: localhost:9999
 	onNewClientCallback      func(c *Client)
@@ -56,22 +56,22 @@ func (c *Client) Close() error {
 }
 
 // Called right after server starts listening new client
-func (s *server) OnNewClient(callback func(c *Client)) {
+func (s *TCPServer) OnNewClient(callback func(c *Client)) {
 	s.onNewClientCallback = callback
 }
 
 // Called right after connection closed
-func (s *server) OnClientConnectionClosed(callback func(c *Client, err error)) {
+func (s *TCPServer) OnClientConnectionClosed(callback func(c *Client, err error)) {
 	s.onClientConnectionClosed = callback
 }
 
 // Called when Client receives new message
-func (s *server) OnNewMessage(callback func(c *Client, message string)) {
+func (s *TCPServer) OnNewMessage(callback func(c *Client, message string)) {
 	s.onNewMessage = callback
 }
 
 // Start network server
-func (s *server) Listen() {
+func (s *TCPServer) Listen() {
 	listener, err := net.Listen("tcp", s.address)
 	if err != nil {
 		log.Fatal("Error starting TCP server.")
@@ -90,9 +90,9 @@ func (s *server) Listen() {
 }
 
 // Creates new tcp server instance
-func New(address string) *server {
+func New(address string) *TCPServer {
 	log.Println("Creating server with address", address)
-	server := &server{
+	server := &TCPServer{
 		address: address,
 	}
 
